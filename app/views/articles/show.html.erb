@@ -9,34 +9,10 @@
 </p>
 
 <h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p>
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-<% end %>
-
+<%= render @article.comments %>
 
 <h2>Add a comment:</h2>
-<!-- @aricle.comments.build calls the CREATE action of the comment controller -->
-<%= form_for([@article, @article.comments.build]) do |f| %>
-  <p>
-    <%= f.label :commenter %><br>
-    <%= f.text_field :commenter %>
-  </p>
-  <p>
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
-
+<%= render 'comments/form' %>
 
 <!-- this link points at the edit.html.erb view passing the object @article -->
 <%= link_to 'Edit', edit_article_path(@article) %>
