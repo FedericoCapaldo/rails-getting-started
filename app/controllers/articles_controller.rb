@@ -11,15 +11,45 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  # this is a view
+  # it has its own view
   def new
+    # after insterting the error checking @article.errors.any?, this line is needed to prevent error of the app
+    @article = Article.new
+  end
+
+  # it has its own view
+  def edit
+    @article = Article.find(params[:id])
   end
 
   # this is somehow called when the new.html.erb has a form that submits something
   def create
     @article = Article.new(article_params)
-    @article.save
-    redirect_to @article
+
+    # redirect_to is a new request. render keeps the @article object in the form
+    if @article.save
+      redirect_to @article
+    else
+      render 'new'
+    end
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
+    end
+  end
+
+  #  a view is not needed for this action since we are redirecting to the index action
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to articles_path
   end
 
   private
