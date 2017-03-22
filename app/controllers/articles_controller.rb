@@ -1,4 +1,6 @@
-class ArticlesController < ApplicationController
+ class ArticlesController < ApplicationController
+  # ask to be authenticated in order to do operations on the articles
+  http_basic_authenticate_with name: "dhh", password: "secret", expect: [:index, :show]
 
   # this displayes the index view with all articles.
   def index
